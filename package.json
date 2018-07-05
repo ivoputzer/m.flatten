@@ -21,6 +21,9 @@
     "m.test": "0.0.57",
     "standard": "^11.0.1"
   },
+  "optionalDependencies": {
+    "istanbul": "^0.4.5"
+  },
   "standard": {
     "global": [
       "test"
