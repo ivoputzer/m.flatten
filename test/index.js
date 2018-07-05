@@ -10,10 +10,7 @@ test('m.flatten', () => {
 
     test('throws', () => {
       test('when no iterable is provided', () => {
-        throws(flatten.bind(null, 5), {
-          name: 'TypeError',
-          message: 'CreateListFromArrayLike called on non-object'
-        })
+        throws(flatten.bind(null, 5), TypeError)
       })
     })
 
