@@ -1,9 +1,22 @@
 {
   "name": "m.flatten",
-  "version": "0.0.0-draft.0",
+  "version": "0.0.0",
+  "author": "Ivo von Putzer Reibegg <ivo.putzer@gmail.com>",
+  "description": "m(icro)flatten is a simple array flat implementation writte in es6+",
+  "keywords": [
+    "flatten",
+    "array",
+    "m.icro"
+  ],
+  "license": "MIT",
+  "main": "index.js",
   "scripts": {
     "test": "m.test"
   },
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {},
   "devDependencies": {
     "m.test": "0.0.57",
     "standard": "^11.0.1"
@@ -12,5 +25,13 @@
     "global": [
       "test"
     ]
+  },
+  "homepage": "https://github.com/ivoputzer/m.flatten#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivoputzer/m.flatten.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ivoputzer/m.flatten/issues"
   }
 }
