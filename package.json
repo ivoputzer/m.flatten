@@ -11,7 +11,8 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "test": "m.test"
+    "test": "m.test",
+    "coverage": "node --require ./node_modules/m.test/global.js ./node_modules/istanbul/lib/cli.js cover --print detail test"
   },
   "directories": {
     "test": "test"
