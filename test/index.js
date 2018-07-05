@@ -1,6 +1,6 @@
 const {equal, throws, deepEqual} = require('assert')
 
-test('m.flatten', () => {
+test('exports', () => {
   const {flatten} = require('..')
 
   test('.flatten', () => {
