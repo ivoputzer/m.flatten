@@ -4,3 +4,4 @@ test/
 *.md
 *.log
 .travis.yml
+.gitignore
