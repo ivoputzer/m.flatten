@@ -18,7 +18,7 @@ npm install m.flatten
 ```
 
 ### usage
-```javascript
+```js
 const {flatten} = require('.')
 flatten(['a', [ 'b', 'c' ]]) // => [ 'a', 'b', 'c' ]
 ```
