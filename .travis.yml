@@ -10,6 +10,9 @@ node_js:
 - 6
 - 5
 - 4
+cache:
+  directories:
+  - node_modules
 jobs:
   include:
   - stage: coverage
@@ -22,8 +25,7 @@ jobs:
     deploy:
       provider: npm
       email: ivo.putzer@gmail.com
-      api_key:
-        secure: NRZ+gxvWA6sLvJrcFSNmmN+6WuBGAiqVaWD8GGDj8H/sMcIgA5QxC93oNaPGzk0p4uELnuBDsRzrFCbd38EOjcrAIuJIDJhjnB9ekk6G7X3e4vlUP4UXPelHQHymAtM3JIY4JcbBKvKTNb6e2kghtVY2of1O0z9Fm+KmlCxF0bOYXi+GcAeoiVQ74yPqsSvrtcFV8blGbUR8wwcl1mqs54r/2b9UZLgbH845GRASHDtElOTtODZIjxFEo9wL3iqnSce2jeGcmhIZ0BlnkfeL8nl3Ss0BPvAAoCA14zfRLwkjI1rxaetcmwwfqFUVxGowSY7jBO+kQijimhopV1vW1gxpG2YsL3f9DvS6r5D1Bp3EjERDluYQDcu3rTSm4/UPSS1V1s9TvoqDx2gAAHqjZokaBtr3eZtONJ8uxUacF4B5owcPtkvj1jjEVLSv6B83OOZAY/zF2QrgvM1OPQwFGzQAEXyvgzvSrT6hZPnQsuXN+OeopgTM3Pb/mennU5obGHlz5/6MmtIHbiFnHUqQ/NYaSjFTMeP9cQbQBXHac6l5nXhdIgPOZVecMDu3DmzltTz6zJZv3esD7TgYVBBeYaFY5e7OlMQWcYaFf8EbjZYIyRBvfF+WjGm+bnXvtpXvOce2N6/sqJ3lg+eoU60jshkh0wTCLJVniz+RNk+uO5I=
+      api_key: $NPM_TOKEN
       on:
         repo: $TRAVIS_REPO_SLUG
         branch: master
