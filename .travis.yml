@@ -1,9 +1,6 @@
 language: node_js
-before_install:
-- npm install standard
-- node_modules/.bin/standard
-install:
-- npm install
+before_install: npx standard
+install: npm install --no-optional
 git:
   depth: 1
 node_js:
@@ -19,40 +16,38 @@ cache:
   - node_modules
 jobs:
   include:
+
   - stage: coverage
     install: npm install istanbul coveralls
     script: npm run --silent node -- --require ./node_modules/m.test/global.js ./node_modules/istanbul/lib/cli.js cover --print detail test
-    after_success: cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js
     deploy:
-      provider: pages
+    - provider: script
+      script: cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js
+      on: branch: master
+    - provider: pages
       skip-cleanup: true
       github-token: ${GITHUB_TOKEN}
       local-dir: coverage/lcov-report
       on:
         branch: master
 
-  # - stage: deploy
-  #   install: skip
-  #   script: npm pack
-  #   before_deploy:
-  #   - git config --local user.name "Travis CI"
-  #   - git config --local user.email "travis@travis-ci.org"
-  #   - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
-  #   before_deploy:
-  #     # Set up git user name and tag this commit
-  #     - git config --local user.name "YOUR GIT USER NAME"
-  #     - git config --local user.email "YOUR GIT USER EMAIL"
-  #     - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
-  #   deploy:
-  #     # provider: releases
-  #     # api_key: "GITHUB OAUTH TOKEN"
-  #     # file: "FILE TO UPLOAD"
-  #     # skip_cleanup: true
-  #     provider: npm
-  #     email: ivo.putzer@gmail.com
-  #     api_key: $NPM_TOKEN
-  #     on:
-  #       branch: master
+  - stage: publish
+    install: npm pack
+    before_script:
+    - git config --local user.name "Travis CI"
+    - git config --local user.email "travis@travis-ci.org"
+    - git tag $(npm run --silent node -- --print "process.env.npm_package_version")
+    script: git tag -l
+    # deploy:
+      # provider: releases
+      # api_key: "GITHUB OAUTH TOKEN"
+      # file: "FILE TO UPLOAD"
+      # skip_cleanup: true
+      # provider: npm
+      # email: ivo.putzer@gmail.com
+      # api_key: $NPM_TOKEN
+      # on:
+      #   branch: master
   #   after_deploy:
   #   - npm_package_version=$(npm run --silent node -- --print "process.env.npm_package_version")
   #   - git rev-parse -q --verify "refs/tags/$npm_package_version" >/dev/null
