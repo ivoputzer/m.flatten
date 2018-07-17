@@ -1,15 +1,19 @@
 language: node_js
-install: npm install --no-optional
+before_install:
+- npm install standard
+- npm run lint
+install:
+- npm install
 git:
   depth: 1
 node_js:
 - 10
-- 9
-- 8
-- 7
-- 6
-- 5
-- 4
+# - 9
+# - 8
+# - 7
+# - 6
+# - 5
+# - 4
 cache:
   directories:
   - node_modules
@@ -17,18 +21,43 @@ jobs:
   include:
   - stage: coverage
     install: npm install istanbul coveralls
-    script: npm run coverage
+    script: npm run --silent node -- --require ./node_modules/m.test/global.js ./node_modules/istanbul/lib/cli.js cover --print detail test
     after_success: cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js
-  - stage: deploy
-    install: skip
-    script: skip
     deploy:
-      provider: npm
-      email: ivo.putzer@gmail.com
-      api_key: $NPM_TOKEN
+      provider: pages
+      skip-cleanup: true
+      github-token: ${GITHUB_TOKEN}
+      local-dir: coverage/lcov-report
       on:
-        repo: $TRAVIS_REPO_SLUG
         branch: master
-  allow_failures:
-  - node_js: 5
-  - node_js: 4
+
+  # - stage: deploy
+  #   install: skip
+  #   script: npm pack
+  #   before_deploy:
+  #   - git config --local user.name "Travis CI"
+  #   - git config --local user.email "travis@travis-ci.org"
+  #   - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+  #   before_deploy:
+  #     # Set up git user name and tag this commit
+  #     - git config --local user.name "YOUR GIT USER NAME"
+  #     - git config --local user.email "YOUR GIT USER EMAIL"
+  #     - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+  #   deploy:
+  #     # provider: releases
+  #     # api_key: "GITHUB OAUTH TOKEN"
+  #     # file: "FILE TO UPLOAD"
+  #     # skip_cleanup: true
+  #     provider: npm
+  #     email: ivo.putzer@gmail.com
+  #     api_key: $NPM_TOKEN
+  #     on:
+  #       branch: master
+  #   after_deploy:
+  #   - npm_package_version=$(npm run --silent node -- --print "process.env.npm_package_version")
+  #   - git rev-parse -q --verify "refs/tags/$npm_package_version" >/dev/null
+  #   # - npm run --silent node -- --print "process.env.npm_package_version"
+  #   # -
+  # allow_failures:
+  # - node_js: 5
+  # - node_js: 4

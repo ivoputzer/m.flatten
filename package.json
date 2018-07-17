@@ -1,6 +1,6 @@
 {
   "name": "m.flatten",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": "Ivo von Putzer Reibegg <ivo.putzer@gmail.com>",
   "description": "m(icro)flatten is a simple array flatten implementation written in es6+",
   "keywords": [
@@ -11,19 +11,21 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "pretest": "standard",
-    "test": "m.test",
-    "coverage": "node --require ./node_modules/m.test/global.js ./node_modules/istanbul/lib/cli.js cover --print detail test"
+    "node": "node",
+    "test": "m.test"
   },
   "directories": {
     "test": "test"
   },
-  "dependencies": {},
-  "devDependencies": {
-    "m.test": "0.0.57",
+  "dependencies": {
+    "istanbul": "^0.4.5",
     "standard": "^11.0.1"
   },
-  "optionalDependencies": {
+  "devDependencies": {
+    "m.test": "0.0.57"
+  },
+  "peerDependencies": {
+    "standard": "^11.0.1",
     "istanbul": "^0.4.5"
   },
   "standard": {
