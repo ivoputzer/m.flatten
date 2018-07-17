@@ -4,5 +4,7 @@ test/
 
 *.md
 *.log
+
+.npmrc
 .travis.yml
 .gitignore

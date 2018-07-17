@@ -1,8 +1,9 @@
 node_modules/
 coverage/
 
-todo.md
-
 *.DS_Store
 *.log
 *.tgz
+*.npmrc
+
+todo.md
