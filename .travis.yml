@@ -9,13 +9,14 @@ node_js:
 # - 6
 # - 5
 # - 4
-notifications:
-  email: false
 jobs:
+  allow_failures:
+  - node_js: 5
+  - node_js: 4
   include:
   - stage: lint
     install: npm install standard
-    scirpt: node_modules/.bin/standard
+    scirpt: $(npm bin)/standard
   - stage: coverage
     install: npm install istanbul coveralls
     script: npm run --silent node -- --require ./node_modules/m.test/global.js ./node_modules/istanbul/lib/cli.js cover --print detail test
@@ -51,6 +52,5 @@ jobs:
   #   - git rev-parse -q --verify "refs/tags/$npm_package_version" >/dev/null
   #   # - npm run --silent node -- --print "process.env.npm_package_version"
   #   # -
-  # allow_failures:
-  # - node_js: 5
-  # - node_js: 4
+notifications:
+  email: false
