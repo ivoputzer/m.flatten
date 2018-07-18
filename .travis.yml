@@ -15,8 +15,8 @@ jobs:
   - node_js: 4
   include:
   - stage: lint
-    install: npm install standard
-    scirpt: $(npm bin)/standard
+    install: npm --global install standard
+    scirpt: $(npm --global bin)/standard
   - stage: coverage
     install: npm install istanbul coveralls
     script: npm run --silent node -- --require ./node_modules/m.test/global.js ./node_modules/istanbul/lib/cli.js cover --print detail test
