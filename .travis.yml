@@ -9,8 +9,7 @@ node_js:
 # - 6
 # - 5
 # - 4
-before_install: npm install standard
-before_script: $(npm bin)/standard
+before_install: npx standard
 notifications:
   email: false
 jobs:
