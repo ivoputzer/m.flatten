@@ -23,11 +23,13 @@ jobs:
     deploy:
       - provider: script
         skip-cleanup: true
+        before_script: echo "Deploy $TRAVIS_REPO_SLUG"
         script: cat coverage/lcov.info | $(npm root)/coveralls/bin/coveralls.js
+        after_success: echo "htts://coveralls.io/github/$TRAVIS_REPO_SLUG"
       - provider: pages
         local-dir: coverage/lcov-report
         skip-cleanup: true
-        github-token: ${GITHUB_TOKEN}
+        github-token: $GITHUB_TOKEN
         on:
           branch: master
   # - stage: publish
