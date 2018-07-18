@@ -54,7 +54,7 @@
       - provider: script
         skip_cleanup: true
         script:
-        - cat coverage/lcov.info | coveralls
+        - cat coverage/lcov.info | $(npm root)/coveralls/bin/coveralls.js
         - echo "htts://coveralls.io/github/$TRAVIS_REPO_SLUG"
         on:
           repo: $TRAVIS_REPO_SLUG
