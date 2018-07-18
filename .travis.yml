@@ -9,6 +9,7 @@ node_js:
 # - 6
 # - 5
 # - 4
+script: npm test
 jobs:
   allow_failures:
   - node_js: 5
