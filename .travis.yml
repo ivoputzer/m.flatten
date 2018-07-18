@@ -13,6 +13,7 @@ before_install: npx standard
 notifications:
   email: false
 jobs:
+  include:
   - stage: coverage
     install: npm install istanbul coveralls
     script: npm run --silent node -- --require ./node_modules/m.test/global.js ./node_modules/istanbul/lib/cli.js cover --print detail test
