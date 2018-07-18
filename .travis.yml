@@ -11,27 +11,25 @@ node_js:
 # - 6
 # - 5
 # - 4
-cache:
-  directories:
-  - node_modules
+notifications:
+    email: false
 jobs:
   include:
   - stage: coverage
     install: npm install istanbul coveralls
     script: npm run --silent node -- --require ./node_modules/m.test/global.js ./node_modules/istanbul/lib/cli.js cover --print detail test
+    script: bash cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js
     deploy:
-    - provider: script
-      script: bash cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js
-      on: branch: master
-    - provider: pages
-      skip-cleanup: true
+      provider: pages
       github-token: ${GITHUB_TOKEN}
+      skip-cleanup: true
       local-dir: coverage/lcov-report
       on:
         branch: master
   # - stage: publish
-  #   install: npm pack
-  #   before_script:
+  #   install: skip
+  #   script: npm pack
+  #   on_success:
   #   - git config --local user.name "Travis CI"
   #   - git config --local user.email "travis@travis-ci.org"
   #   - git tag $(npm run --silent node -- --print "process.env.npm_package_version")
