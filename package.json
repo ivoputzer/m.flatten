@@ -10,6 +10,11 @@
   ],
   "license": "MIT",
   "main": "index.js",
+  "standard": {
+    "global": [
+      "test"
+    ]
+  },
   "scripts": {
     "node": "node",
     "test": "m.test"
@@ -17,19 +22,9 @@
   "directories": {
     "test": "test"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "m.test": "0.0.57"
-  },
-  "peerDependencies": {
-    "standard": "^11.0.1",
-    "istanbul": "^0.4.5"
-  },
-  "standard": {
-    "global": [
-      "test"
-    ]
   },
   "homepage": "https://github.com/ivoputzer/m.flatten#readme",
   "repository": {
