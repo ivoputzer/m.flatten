@@ -21,6 +21,5 @@ npm install m.flatten
 ```js
 const {flatten} = require('.')
 
-flatten(['a', [ 'b', 'c' ]])
-// [ 'a', 'b', 'c' ]
+flatten(['a', [ 'b', 'c' ]]) // [ 'a', 'b', 'c' ]
 ```
