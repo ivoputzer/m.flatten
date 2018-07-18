@@ -14,10 +14,10 @@ jobs:
   - node_js: 5
   - node_js: 4
   include:
-  - stage: lint
+  - stage: code style
     install: npm install standard
     script: standard
-  - stage: coverage
+  - stage: code coverage
     install: npm install istanbul coveralls
     script: npm run --silent node -- --require $(npm root)/m.test/global.js $(npm root)/istanbul/lib/cli.js cover --print detail test
     deploy:
