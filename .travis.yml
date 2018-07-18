@@ -1,7 +1,7 @@
 language: node_js
 git:
   depth: 1
-before_install: npx standard
+before_install:
 node_js:
 - 10
 - 9
@@ -14,7 +14,9 @@ notifications:
   email: false
 jobs:
   include:
-
+  - stage: lint
+    install: npm install standard
+    scirpt: node_modules/.bin/standard
   - stage: coverage
     install: npm install istanbul coveralls
     script: npm run --silent node -- --require ./node_modules/m.test/global.js ./node_modules/istanbul/lib/cli.js cover --print detail test
