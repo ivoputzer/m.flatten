@@ -65,21 +65,21 @@
 
     - stage: publish
       install: ignore
-      script: export NPM_PACKAGE=$(npm pack)
-      before_deploy:
-        - export MODULE_VERSION=$(npm view $PWD version)
-      after_deploy:
-        if [ "$MODULE_VERSION" -eq $(npm view $PWD version) ]; then
-          echo "in previous deployment npm version has been bumped and successfully published"
-        fi
-      deploy:
-        - provider: releases
-          skip_cleanup: true
-          api_key: $GITHUB_API_KEY
-          file: $NPM_PACKAGE
-          on:
-            repo: $TRAVIS_REPO_SLUG
-            branch: master
+      script: npm pack
+      # before_deploy:
+      #   - export MODULE_VERSION=$(npm view $PWD version)
+      # after_deploy:
+      #   if [ "$MODULE_VERSION" -eq $(npm view $PWD version) ]; then
+      #     echo "in previous deployment npm version has been bumped and successfully published"
+      #   fi
+      # deploy:
+      #   - provider: releases
+      #     skip_cleanup: true
+      #     api_key: $GITHUB_API_KEY
+      #     file: m.flatten-1.2.0.tgz
+      #     on:
+      #       repo: $TRAVIS_REPO_SLUG
+      #       branch: master
         # - provider: npm
         #   email: ivo.putzer@gmail.com
         #   api_key: $NPM_TOKEN
