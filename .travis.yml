@@ -43,11 +43,11 @@ jobs:
     install: npm install istanbul coveralls
     script: npm run --silent node -- --require $(npm root)/m.test/global.js $(npm root)/istanbul/lib/cli.js cover --print detail test
     deploy:
-    - provider: script
-      skip_cleanup: true
-      script:
-      - cat coverage/lcov.info | $(npm root)/coveralls/bin/coveralls.js
-      - echo "coveralls.io/github/$TRAVIS_REPO_SLUG"
+    # - provider: script
+    #   skip_cleanup: true
+    #   script:
+    #   - cat coverage/lcov.info | $(npm root)/coveralls/bin/coveralls.js
+    #   - echo "coveralls.io/github/$TRAVIS_REPO_SLUG"
     - provider: pages
       skip_cleanup: true
       local-dir: coverage/lcov-report
