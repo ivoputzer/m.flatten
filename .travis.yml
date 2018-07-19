@@ -14,10 +14,10 @@
     - node_js: 5
     - node_js: 4
     include:
-    - stage: style guide, linter
+    - stage: lint
       install: npm install standard
       script: standard
-    - stage: coverage, coveralls, gh-pages
+    - stage: cover
       install: npm install istanbul coveralls
       script: npm run --silent node -- --require $(npm root)/m.test/global.js $(npm root)/istanbul/lib/cli.js cover --handle-sigint --print detail test
       deploy:
@@ -36,7 +36,7 @@
         on:
           repo: $TRAVIS_REPO_SLUG
           branch: master
-    - stage: publish
+    - stage: push
       install: skip
       script: export=$(npm pack)
       # before_deploy:
