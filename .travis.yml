@@ -36,17 +36,15 @@
     - node_js: 5
     - node_js: 4
     include:
-
     - stage: code style
       install: npm install standard
       script: standard
-
     - stage: code coverage
       install: npm install istanbul coveralls
       script: npm run --silent node -- --require $(npm root)/m.test/global.js $(npm root)/istanbul/lib/cli.js cover --print detail test
-      after_success:
-        - cat coverage/lcov.info | $(npm root)/coveralls/bin/coveralls.js
-        - echo "htts://coveralls.io/github/$TRAVIS_REPO_SLUG"
+      # after_success:
+      #   - cat coverage/lcov.info | $(npm root)/coveralls/bin/coveralls.js
+      #   - echo "htts://coveralls.io/github/$TRAVIS_REPO_SLUG"
       deploy:
         provider: pages
         skip_cleanup: true
@@ -55,9 +53,8 @@
         on:
           repo: $TRAVIS_REPO_SLUG
           branch: master
-
     - stage: publish
-      install: ignore
+      install: skip
       script: npm pack
       # before_deploy:
       #   - export MODULE_VERSION=$(npm view $PWD version)
