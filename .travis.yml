@@ -1,94 +1,94 @@
-  language: node_js
-  git:
-    depth: 1
-  node_js:
-  - 10
-  - 9
-  # - 8
-  # - 7
-  # - 6
-  # - 5
-  # - 4
-  # after_success:
-  # - python travis_after_all.py https://api.travis-ci.com
-  # - export $(cat .to_export_back)
-  # - |
-  #     if [ "$BUILD_LEADER" = "YES" ]; then
-  #       if [ "$BUILD_AGGREGATE_STATUS" = "others_succeeded" ]; then
-  #         echo "All jobs succeeded! PUBLISHING..."
-  #       else
-  #         echo "Some jobs failed"
-  #       fi
-  #     fi
-  # after_failure:
-  # - python travis_after_all.py https://api.travis-ci.com
-  # - export $(cat .to_export_back)
-  # - |
-  #     if [ "$BUILD_LEADER" = "YES" ]; then
-  #       if [ "$BUILD_AGGREGATE_STATUS" = "others_failed" ]; then
-  #         echo "All jobs failed"
-  #       else
-  #         echo "Some jobs failed"
-  #       fi
-  #     fi
-  jobs:
-    allow_failures:
-    - node_js: 5
-    - node_js: 4
-    include:
-    - stage: code style
-      install: npm install standard
-      script: standard
-    - stage: code coverage
-      install: npm install istanbul coveralls
-      script: npm run --silent node -- --require $(npm root)/m.test/global.js $(npm root)/istanbul/lib/cli.js cover --print detail test
-      deploy:
-      - provider: script
-        skip_cleanup: true
-        script:
-        - cat coverage/lcov.info | $(npm root)/coveralls/bin/coveralls.js
-        - echo "coveralls.io/github/$TRAVIS_REPO_SLUG"
-      - provider: pages
-        skip_cleanup: true
-        local-dir: coverage/lcov-report
-        github-token: $GITHUB_TOKEN
-        on:
-          repo: $TRAVIS_REPO_SLUG
-          branch: master
-    - stage: publish
-      install: skip
-      script: npm pack
-      # before_deploy:
-      #   - export MODULE_VERSION=$(npm view $PWD version)
-      # after_deploy:
-      #   if [ "$MODULE_VERSION" -eq $(npm view $PWD version) ]; then
-      #     echo "in previous deployment npm version has been bumped and successfully published"
-      #   fi
-      # deploy:
-      #   - provider: releases
-      #     skip_cleanup: true
-      #     api_key: $GITHUB_API_KEY
-      #     file: m.flatten-1.2.0.tgz
-      #     on:
-      #       repo: $TRAVIS_REPO_SLUG
-      #       branch: master
-        # - provider: npm
-        #   email: ivo.putzer@gmail.com
-        #   api_key: $NPM_TOKEN
-        #   on:
-        #     repo: $TRAVIS_REPO_SLUG
-        #     branch: master
-      # before_deploy:
-      # after_deploy:
-      # - npm view $PWD version
-      # - git config --local user.name "Travis CI"
-      # - git config --local user.email "travis@travis-ci.org"
-      # - git tag $(npm run --silent node -- --print "process.env.npm_package_version")
-      # - git tag -l
-    #   after_deploy:
-    #   - npm_package_version=$(npm run --silent node -- --print "process.env.npm_package_version")
-    #   - git rev-parse -q --verify "refs/tags/$npm_package_version" >/dev/null
-    #   # - npm run --silent node -- --print "process.env.npm_package_version"
-    #   # -
-  notifications:
-    email: false
+language: node_js
+git:
+  depth: 1
+node_js:
+- 10
+- 9
+# - 8
+# - 7
+# - 6
+# - 5
+# - 4
+# after_success:
+# - python travis_after_all.py https://api.travis-ci.com
+# - export $(cat .to_export_back)
+# - |
+#     if [ "$BUILD_LEADER" = "YES" ]; then
+#       if [ "$BUILD_AGGREGATE_STATUS" = "others_succeeded" ]; then
+#         echo "All jobs succeeded! PUBLISHING..."
+#       else
+#         echo "Some jobs failed"
+#       fi
+#     fi
+# after_failure:
+# - python travis_after_all.py https://api.travis-ci.com
+# - export $(cat .to_export_back)
+# - |
+#     if [ "$BUILD_LEADER" = "YES" ]; then
+#       if [ "$BUILD_AGGREGATE_STATUS" = "others_failed" ]; then
+#         echo "All jobs failed"
+#       else
+#         echo "Some jobs failed"
+#       fi
+#     fi
+jobs:
+  allow_failures:
+  - node_js: 5
+  - node_js: 4
+  include:
+  - stage: code style
+    install: npm install standard
+    script: standard
+  - stage: code coverage
+    install: npm install istanbul coveralls
+    script: npm run --silent node -- --require $(npm root)/m.test/global.js $(npm root)/istanbul/lib/cli.js cover --print detail test
+    deploy:
+    - provider: script
+      skip_cleanup: true
+      script:
+      - cat coverage/lcov.info | $(npm root)/coveralls/bin/coveralls.js
+      - echo "coveralls.io/github/$TRAVIS_REPO_SLUG"
+    - provider: pages
+      skip_cleanup: true
+      local-dir: coverage/lcov-report
+      github-token: $GITHUB_TOKEN
+      on:
+        repo: $TRAVIS_REPO_SLUG
+        branch: master
+  - stage: publish
+    install: skip
+    script: npm pack
+    # before_deploy:
+    #   - export MODULE_VERSION=$(npm view $PWD version)
+    # after_deploy:
+    #   if [ "$MODULE_VERSION" -eq $(npm view $PWD version) ]; then
+    #     echo "in previous deployment npm version has been bumped and successfully published"
+    #   fi
+    # deploy:
+    #   - provider: releases
+    #     skip_cleanup: true
+    #     api_key: $GITHUB_API_KEY
+    #     file: m.flatten-1.2.0.tgz
+    #     on:
+    #       repo: $TRAVIS_REPO_SLUG
+    #       branch: master
+      # - provider: npm
+      #   email: ivo.putzer@gmail.com
+      #   api_key: $NPM_TOKEN
+      #   on:
+      #     repo: $TRAVIS_REPO_SLUG
+      #     branch: master
+    # before_deploy:
+    # after_deploy:
+    # - npm view $PWD version
+    # - git config --local user.name "Travis CI"
+    # - git config --local user.email "travis@travis-ci.org"
+    # - git tag $(npm run --silent node -- --print "process.env.npm_package_version")
+    # - git tag -l
+  #   after_deploy:
+  #   - npm_package_version=$(npm run --silent node -- --print "process.env.npm_package_version")
+  #   - git rev-parse -q --verify "refs/tags/$npm_package_version" >/dev/null
+  #   # - npm run --silent node -- --print "process.env.npm_package_version"
+  #   # -
+notifications:
+  email: false
