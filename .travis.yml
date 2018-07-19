@@ -36,6 +36,7 @@
     - node_js: 5
     - node_js: 4
     include:
+
     - stage: code style
       install: npm install standard
       script: standard
@@ -44,6 +45,7 @@
       install: npm install istanbul coveralls
       script: npm run --silent node -- --require $(npm root)/m.test/global.js $(npm root)/istanbul/lib/cli.js cover --print detail test
       deploy:
+
       - provider: pages
         skip_cleanup: true
         local-dir: coverage/lcov-report
@@ -51,6 +53,7 @@
         on:
           repo: $TRAVIS_REPO_SLUG
           branch: master
+
       - provider: script
         skip_cleanup: true
         script:
@@ -77,12 +80,12 @@
           on:
             repo: $TRAVIS_REPO_SLUG
             branch: master
-        - provider: npm
-          email: ivo.putzer@gmail.com
-          api_key: $NPM_TOKEN
-          on:
-            repo: $TRAVIS_REPO_SLUG
-            branch: master
+        # - provider: npm
+        #   email: ivo.putzer@gmail.com
+        #   api_key: $NPM_TOKEN
+        #   on:
+        #     repo: $TRAVIS_REPO_SLUG
+        #     branch: master
       # before_deploy:
       # after_deploy:
       # - npm view $PWD version
