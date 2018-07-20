@@ -17,7 +17,7 @@
     - stage: lint
       install: npm install standard
       script: standard
-      # on: all branches
+      # on: branch: *
     - stage: cover
       install: npm install nyc coveralls
       script:
@@ -36,13 +36,19 @@
           branch: master
     - stage: push
       install: skip
-      script: export=$(npm pack)
-      # before_deploy:
-      #   - export MODULE_VERSION=$(npm view $PWD version)
-      # after_deploy:
-      #   if [ "$MODULE_VERSION" -eq $(npm view $PWD version) ]; then
-      #     echo "in previous deployment npm version has been bumped and successfully published"
-      #   fi
+      script: skip
+      before_deploy:
+      - >
+        export BEFORE_DEPLOY_NPM_PACKAGE_VERSION=$(npm view $PWD version)
+      after_deploy:
+      - >
+        export AFTER_DEPLOY_NPM_PACKAGE_VERSION=$(npm view $PWD version)
+        if [ "$PREVIOUS_MODULE_VERSION" -ne "$AFTER_DEPLOY_NPM_PACKAGE_VERSION" ]; then
+          export NPM_DEPLOYMENT_SUCCESS=1;
+          if [ "$MODULE_VERSION" -eq $(npm view $PWD version) ]; then
+            echo "in previous deployment npm version has been bumped and successfully published"
+          fi
+        fi
       deploy:
       - provider: npm
         email: ivo.putzer@gmail.com
@@ -51,14 +57,16 @@
         on:
           repo: $TRAVIS_REPO_SLUG
           branch: master
+
       - provider: releases
         skip_cleanup: true
         api_key: $GITHUB_API_KEY
-        file: m.flatten-1.2.0.tgz
+        file_glob: true
+        file: m.flatten-*.tgz
         on:
           repo: $TRAVIS_REPO_SLUG
           branch: master
-          condition: $(npm view ${PWD} version) = $(npm run --silent node -- --print "process.env.npm_package_version")
+          condition: "$PREVIOUS_MODULE_VERSION" != "$AFTER_DEPLOY_NPM_PACKAGE_VERSION"
         # - provider: npm
         #   email: ivo.putzer@gmail.com
         #   api_key: $NPM_TOKEN
