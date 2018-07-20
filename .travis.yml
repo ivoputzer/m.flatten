@@ -19,12 +19,18 @@
       script: standard
       # on: all branches
     - stage: cover
-      install: npm install istanbul coveralls
-      script: npm run --silent node -- --require $(npm root)/m.test/global.js $(npm root)/istanbul/lib/cli.js cover --handle-sigint --print detail test
+      install: npm install nyc coveralls
+      script:
+      # - npm run --silent node -- --require $(npm root)/m.test/global.js $(npm root)/istanbul/lib/cli.js cover --handle-sigint --print detail test
+      # - $(npm bin)/nyc npm test
+      # - node_modules/.bin/nyc report --reporter=text-lcov npm test
+      - nyc --reporter=lcov --reporter=text-lcov npm test
       deploy:
       - provider: script
         skip_cleanup: true
-        script: cat coverage/lcov.info | $(npm root)/coveralls/bin/coveralls.js --verbose
+        script:
+        # - $(npm bin)/nyc report --reporter=text-lcov | coveralls ver
+        - cat coverage/lcov.info | coveralls --verbose
       - provider: pages
         skip_cleanup: true
         local-dir: coverage/lcov-report
