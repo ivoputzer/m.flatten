@@ -24,9 +24,8 @@
       - provider: script
         skip_cleanup: true
         script:
-          - cat coverage/lcov.info
-          - ls coverage
-          - cat coverage/lcov.info | coveralls
+          - cat coverage
+          - cat coverage/lcov.info | $(node root)/coveralls/bin/coveralls.js
         on:
           repo: $TRAVIS_REPO_SLUG
           branch: master
