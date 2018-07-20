@@ -62,7 +62,7 @@
         on:
           repo: $TRAVIS_REPO_SLUG
           branch: master
-          # condition: "$BEFORE_DEPLOY_NPM_PACKAGE_VERSION" != "$AFTER_DEPLOY_NPM_PACKAGE_VERSION"
+          # condition: $BEFORE_DEPLOY_NPM_PACKAGE_VERSION != $AFTER_DEPLOY_NPM_PACKAGE_VERSION
         # - provider: npm
         #   email: ivo.putzer@gmail.com
         #   api_key: $NPM_TOKEN
