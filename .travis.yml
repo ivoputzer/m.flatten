@@ -42,6 +42,7 @@
       after_deploy:
       - export AFTER_DEPLOY_NPM_PACKAGE_VERSION=$(npm view $PWD version)
       - git tag demot-tag-from-ci
+      - git tag --list
       deploy:
       - provider: npm
         email: ivo.putzer@gmail.com
