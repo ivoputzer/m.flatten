@@ -43,11 +43,8 @@
       after_deploy:
       - >
         export AFTER_DEPLOY_NPM_PACKAGE_VERSION=$(npm view $PWD version)
-        if [ "$PREVIOUS_MODULE_VERSION" -ne "$AFTER_DEPLOY_NPM_PACKAGE_VERSION" ]; then
-          export NPM_DEPLOYMENT_SUCCESS=1;
-          if [ "$MODULE_VERSION" -eq $(npm view $PWD version) ]; then
-            echo "in previous deployment npm version has been bumped and successfully published"
-          fi
+        if [ "$BEFORE_DEPLOY_NPM_PACKAGE_VERSION" -ne "$AFTER_DEPLOY_NPM_PACKAGE_VERSION" ]; then
+          echo "make reference tag here at this point"
         fi
       deploy:
       - provider: npm
@@ -57,7 +54,6 @@
         on:
           repo: $TRAVIS_REPO_SLUG
           branch: master
-
       - provider: releases
         skip_cleanup: true
         api_key: $GITHUB_API_KEY
@@ -66,7 +62,7 @@
         on:
           repo: $TRAVIS_REPO_SLUG
           branch: master
-          condition: "$PREVIOUS_MODULE_VERSION" != "$AFTER_DEPLOY_NPM_PACKAGE_VERSION"
+          # condition: "$BEFORE_DEPLOY_NPM_PACKAGE_VERSION" != "$AFTER_DEPLOY_NPM_PACKAGE_VERSION"
         # - provider: npm
         #   email: ivo.putzer@gmail.com
         #   api_key: $NPM_TOKEN
