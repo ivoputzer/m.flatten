@@ -38,14 +38,10 @@
       install: skip
       script: skip
       before_deploy:
-      - >
-        export BEFORE_DEPLOY_NPM_PACKAGE_VERSION=$(npm view $PWD version)
+      - export BEFORE_DEPLOY_NPM_PACKAGE_VERSION=$(npm view $PWD version)
       after_deploy:
-      - >
-        export AFTER_DEPLOY_NPM_PACKAGE_VERSION=$(npm view $PWD version)
-        if [ "$BEFORE_DEPLOY_NPM_PACKAGE_VERSION" -ne "$AFTER_DEPLOY_NPM_PACKAGE_VERSION" ]; then
-          echo "make reference tag here at this point"
-        fi
+      - export AFTER_DEPLOY_NPM_PACKAGE_VERSION=$(npm view $PWD version)
+      - git tag demot-tag-from-ci
       deploy:
       - provider: npm
         email: ivo.putzer@gmail.com
