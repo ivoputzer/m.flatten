@@ -17,18 +17,14 @@
     - stage: lint
       install: npm install standard
       script: standard
+      # on: all branches
     - stage: cover
       install: npm install istanbul coveralls
       script: npm run --silent node -- --require $(npm root)/m.test/global.js $(npm root)/istanbul/lib/cli.js cover --handle-sigint --print detail test
       deploy:
       - provider: script
         skip_cleanup: true
-        script:
-          - cat coverage
-          - cat coverage/lcov.info | $(npm root)/coveralls/bin/coveralls.js
-        on:
-          repo: $TRAVIS_REPO_SLUG
-          branch: master
+        script: cat coverage/lcov.info | $(npm root)/coveralls/bin/coveralls.js --verbose
       - provider: pages
         skip_cleanup: true
         local-dir: coverage/lcov-report
