@@ -23,6 +23,3 @@ const {flatten} = require('.')
 
 flatten(['a', [ 'b', 'c' ]]) // [ 'a', 'b', 'c' ]
 ```
-
-
-asdf
