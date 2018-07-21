@@ -23,7 +23,6 @@ jobs:
     script:
     - npx standard
   - stage: cover
-    install: skip
     script:
     - npx nyc --reporter=lcov npm test
     deploy:
