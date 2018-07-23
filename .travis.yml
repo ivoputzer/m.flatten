@@ -39,11 +39,11 @@ jobs:
         branch: master
   - stage: push
     install: skip
-    script: skip
+    script:
+    - export PACKAGE_TAR=$(npm pack)
     after_success:
-    - export NPM_PACKAGE_VERSION=$(npm view $PWD version)
-    - export PACKAGE_VERSION=$(npm run --silent node -- --print "process.env.npm_package_version")
-    - git tag --annotate $NPM_PACKAGE_VERSION --message $NPM_PACKAGE_VERSION --message --message --message "Release $NPM_PACKAGE_VERSION"
+    - export NPM_PACKAGE_VERSION=$(npm run --silent node -- --print "process.env.npm_package_version")
+    - git tag --annotate $NPM_PACKAGE_VERSION --message "v$(npm view $PWD version) › v$NPM_PACKAGE_VERSION"
     - git tag --list
     deploy:
     - provider: npm
@@ -57,7 +57,7 @@ jobs:
     - provider: releases
       skip_cleanup: true
       api_key: $GITHUB_API_KEY
-      file: $(npm pack)
+      file: $PACKAGE_TAR
       overwrite: false
       on:
         repo: $TRAVIS_REPO_SLUG
