@@ -1,10 +1,12 @@
 node_modules/
-coverage/
 test/
-
-*.md
-*.log
-
+coverage/
+.idea/
+.nyc_output/
+.DS_Store
 .npmrc
+*.log
+*.tgz
+*.md
 .travis.yml
 .gitignore
