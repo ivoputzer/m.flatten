@@ -23,9 +23,8 @@ jobs:
     script:
     - npx standard
   - stage: cover
-    # install:
     script:
-    - npx nyc --reporter=lcov npm test
+    - npx nyc --reporter=text --reporter=lcov npm test
     deploy:
     - provider: script
       skip_cleanup: true
@@ -33,8 +32,8 @@ jobs:
       - npx nyc report --reporter=text-lcov | npx coveralls --verbose
     - provider: pages
       skip_cleanup: true
-      local-dir: coverage/lcov-report
-      github-token: $GITHUB_TOKEN
+      local_dir: coverage/lcov-report
+      github_token: $GITHUB_TOKEN
       on:
         repo: $TRAVIS_REPO_SLUG
         branch: master
@@ -48,33 +47,19 @@ jobs:
     - git tag --annotate $NPM_PACKAGE_VERSION --message $NPM_PACKAGE_VERSION
     - git describe --tags --exact-match
     deploy:
-    - provider: npm
+    - provider: npm                  # silently fail on same version deployment
       email: ivo.putzer@gmail.com
-      skip_cleanup: true
       api_key: $NPM_TOKEN
-      tags: false
       on:
         repo: $TRAVIS_REPO_SLUG
         branch: master
-      # cannot deploy same version twice
-    - provider: releases
-      skip_cleanup: true
-      overwrite: false
-      draft: true
-      api_key: $GITHUB_API_KEY
+    - provider: releases             # silently fail on same version deployment
+      skip_cleanup: true             # preserve m.flatten-*.tgz
+      overwrite: false               # don't push same tag twice
       file: $NPM_PACKAGE
-      overwrite: false
+      api_key: $GITHUB_API_KEY
       on:
         repo: $TRAVIS_REPO_SLUG
         branch: master
-      # cannot deploy same version twice
-        # condition: if [ "$BEFORE_DEPLOY_NPM_PACKAGE_VERSION" -ne "$AFTER_DEPLOY_NPM_PACKAGE_VERSION" ]; then true; else false; fi
-    # - npm view $PWD version
-    # -
-    # - git tag -l
-  #   after_deploy:
-  #   - npm_package_version=
-  #   - git rev-parse -q --verify "refs/tags/$npm_package_version" >/dev/null
-  #   # - npm run --silent node -- --print "process.env.npm_package_version"
 notifications:
   email: false
