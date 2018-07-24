@@ -8,7 +8,7 @@ node_js:
 - 8
 - 7
 - 6
-- 5s
+- 5
 - 4
 cache:
   directories:
