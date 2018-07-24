@@ -42,7 +42,8 @@ jobs:
     script:
     - export PACKAGE_TAR=$(npm pack)
     after_success:
-    - export NPM_PACKAGE_VERSION=$(npm run --silent node -- --print "process.env.npm_package_version")
+    - export NPM_PACKAGE_VERSION=$(npm --silent run node -- --print process.env.npm_package_version)
+    - git tag --list
     - git tag --annotate $NPM_PACKAGE_VERSION --message "v$(npm view $PWD version) › v$NPM_PACKAGE_VERSION"
     - git tag --list
     deploy:
@@ -56,6 +57,10 @@ jobs:
         branch: master
     - provider: releases
       skip_cleanup: true
+      overwrite: false
+      draft: true
+      # tag_name: $NPM_PACKAGE_VERSION
+      # name: $NPM_PACKAGE_VERSION
       api_key: $GITHUB_API_KEY
       file: $PACKAGE_TAR
       overwrite: false
@@ -70,6 +75,5 @@ jobs:
   #   - npm_package_version=
   #   - git rev-parse -q --verify "refs/tags/$npm_package_version" >/dev/null
   #   # - npm run --silent node -- --print "process.env.npm_package_version"
-  #   # -
 notifications:
   email: false
