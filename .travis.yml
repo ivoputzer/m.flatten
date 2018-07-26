@@ -44,6 +44,7 @@ jobs:
     after_success:
     - NPM_VERSION_TAR=${NPM_PACKAGE##*-}
     - export NPM_PACKAGE_VERSION=${NPM_VERSION_TAR%.*}
+    - export NPM_RELEASE_VERSION=$(npm --silent view $PWD version)
     - git tag --annotate $NPM_PACKAGE_VERSION --message $NPM_PACKAGE_VERSION
     - git describe --tags --exact-match
     deploy:
@@ -61,5 +62,6 @@ jobs:
       on:
         repo: $TRAVIS_REPO_SLUG
         branch: master
+        condition: NPM_PACKAGE_VERSION != NPM_RELEASE_VERSION
 notifications:
   email: false
