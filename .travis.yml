@@ -62,6 +62,6 @@ jobs:
       on:
         repo: $TRAVIS_REPO_SLUG
         branch: master
-        condition: NPM_PACKAGE_VERSION != NPM_RELEASE_VERSION
+        condition: NPM_RELEASE_VERSION != $(npm --silent view $PWD version)
 notifications:
   email: false
