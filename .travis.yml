@@ -47,15 +47,15 @@ jobs:
     - git tag --annotate $NPM_PACKAGE_VERSION --message $NPM_PACKAGE_VERSION
     - git describe --tags --exact-match
     deploy:
-    - provider: npm                  # silently fail on same version deployment
+    - provider: npm
       email: ivo.putzer@gmail.com
       api_key: $NPM_TOKEN
       on:
         repo: $TRAVIS_REPO_SLUG
         branch: master
-    - provider: releases             # silently fail on same version deployment
-      skip_cleanup: true             # preserve m.flatten-*.tgz
-      overwrite: false               # don't push same tag twice
+    - provider: releases
+      skip_cleanup: true
+      overwrite: false
       file: $NPM_PACKAGE
       api_key: $GITHUB_API_KEY
       on:
