@@ -2,6 +2,7 @@ node_modules/
 test/
 coverage/
 .idea/
+.github/
 .nyc_output/
 .DS_Store
 .npmrc
