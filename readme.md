@@ -13,12 +13,12 @@ m.flatten
 [![minzip](https://img.shields.io/bundlephobia/minzip/m.flatten.svg?style=for-the-badge)](https://bundlephobia.com/scan-results?packages=m.find)
 [![downloads](https://img.shields.io/npm/dt/m.args.svg?style=for-the-badge&colorB=007EC6)](https://www.npmjs.com/package/m.flatten)
 
-### install
+## install
 ```sh
 npm install m.flatten
 ```
 
-### usage
+## usage
 ```js
 const {flatten} = require('m.flatten')
 

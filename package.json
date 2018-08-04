@@ -1,6 +1,6 @@
 {
   "name": "m.flatten",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "author": "Ivo von Putzer Reibegg <ivo.putzer@gmail.com>",
   "description": "m(icro)flatten is a simple array flatten implementation written in es6+",
   "keywords": [
