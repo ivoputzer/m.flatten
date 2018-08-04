@@ -4,4 +4,4 @@ about: Create a report
 
 ---
 
-a clear and concise description of what the bug is and how to reproduce the behavior. if applicable, add screenshots to help explain your problem.
+write a clear and concise description of what the bug is and how to reproduce the behavior. if applicable, add screenshots to help explain your problem.
