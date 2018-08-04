@@ -1,5 +1,6 @@
 pull request template
 ===
-- [ ] ask for feedback first
-- [ ] reference closed issue
-- [ ] mention additional notes
+- [ ] use title and description to add additional information for maintainers to know;
+- [ ] remember to reference issue(s) being closed.
+
+thank you for contributing to this project.
