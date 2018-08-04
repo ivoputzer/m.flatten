@@ -41,16 +41,13 @@ jobs:
     install: ignore
     script:
     - export NPM_PACKAGE=$(npm --silent pack)
+    - echo NPM_PACKAGE=$NPM_PACKAGE
     after_success:
     - NPM_VERSION_TAR=${NPM_PACKAGE##*-}
     - export NPM_PACKAGE_VERSION=${NPM_VERSION_TAR%.*}
     - export NPM_RELEASE_VERSION=$(npm --silent view $PWD version)
     - git tag --annotate $NPM_PACKAGE_VERSION --message $NPM_PACKAGE_VERSION
     - git describe --tags --exact-match
-    before_deploy:
-    after_deploy:
-    - echo NPM_PACKAGE=$NPM_PACKAGE
-    - echo NPM_PACKAGE_VERSION
     after_deploy:
     - >
       echo NPM_PACKAGE=$NPM_PACKAGE;
