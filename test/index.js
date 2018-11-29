@@ -1,4 +1,4 @@
-const { equal, throws, deepEqual } = require('assert')
+const { strictEqual: equal, throws, deepStrictEqual: deepEqual } = require('assert')
 
 test('exports', () => {
   const { flatten } = require('..')
