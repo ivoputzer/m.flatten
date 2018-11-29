@@ -1,7 +1,7 @@
-const {equal, throws, deepEqual} = require('assert')
+const { equal, throws, deepEqual } = require('assert')
 
 test('exports', () => {
-  const {flatten} = require('..')
+  const { flatten } = require('..')
 
   test('.flatten', () => {
     test('is callable', () => {

@@ -1,3 +1,3 @@
-exports.flatten = (items, {prototype: {concat}} = Array) => {
+exports.flatten = (items, { prototype: { concat } } = Array) => {
   return concat.apply([], items)
 }
