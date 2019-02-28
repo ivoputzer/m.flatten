@@ -25,7 +25,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "m.test": "0.0.57"
+    "m.test": "0.0.58"
   },
   "homepage": "https://github.com/ivoputzer/m.flatten#readme",
   "repository": {
